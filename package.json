@@ -1,0 +1,27 @@
+{
+  "name": "px-filter-box",
+  "version": "1.0.0",
+  "description": "filter or sort box with jquery",
+  "main": "px-filter-box.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PiriAykut/px-filter-box.git"
+  },
+  "keywords": [
+    "px",
+    "filter-box",
+    "sort-box",
+    "input",
+    "select",
+    "jquery"
+  ],
+  "author": "Piri AYKUT <piriaykut@hotmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PiriAykut/px-filter-box/issues"
+  },
+  "homepage": "https://github.com/PiriAykut/px-filter-box#readme"
+}
