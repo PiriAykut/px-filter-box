@@ -55,7 +55,7 @@
         }
 
         _parent.append('<div id="' + _id + '" data-key="' + _key + '" data-object-id="' + _object_id + '" data-object-class="' + _object_class + '" class="px-filter-box mfb-type-' + _options.type + '" title="' + _cap + ' Seçenekleri">' +
-            '   <span class="my-flt-selected-text"><i class="my-flt-selected-count">0</i> ' + _options.selected_info_text + '.</span>' +
+            '   <span class="my-flt-selected-text"><i class="my-flt-selected-count">0</i> ' + _options.selected_info_text + '</span>' +
             '   <div class="my-flt-objects">' +
             '       <div class="my-flt-clean"><span class="my-flt-clean-btn">Seçimleri Temizle</span></div>' +
             //'       ' + (_options.show_selected_values ? '<div class="my-flt-selected-items"></div>' : '') +
