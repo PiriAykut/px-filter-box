@@ -1,6 +1,6 @@
 {
   "name": "px-filter-box",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "filter or sort box with jquery",
   "main": "px-filter-box.js",
   "scripts": {
