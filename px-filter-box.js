@@ -1,5 +1,5 @@
 (function ($) {
-    $.fn.pxfilterbox = function (_options) {
+    $.fn.pxfilterbox = function (_options, _callback) {
         let _object_id = $(this).attr("id");
         let _object_class = $(this).attr("class");
 
@@ -36,6 +36,9 @@
             _options = $.extend(defaults, _options);
         else
             _options = defaults;
+
+        if (_callback !== undefined)
+            _options.callback = _callback;
 
         let _key = my_flt_create_guid();
         let _id = 'px-filter-box-' + _key;
@@ -76,7 +79,10 @@
                         if ($("option[value='-999']", $(this)).length == 0) {
                             $(this).prepend('<option value="-999">' + _options.select_default_text + '</option>').val("-999");
                         }
-                        $(this).selectpicker({ container: 'body', noneSelectedText: 'Seçiniz' });
+
+                        try {
+                            $(this).selectpicker({ container: 'body', noneSelectedText: 'Seçiniz' });
+                        } catch (error) { }
 
                         $(".bootstrap-select.my-flt-control").removeClass("my-flt-control");
                     });
@@ -123,15 +129,19 @@
             $(window).bind('click', function (event) {
                 let _id = "";
 
+                if ($(event.target).parents('.bootstrap-select').length > 0) return;
+
                 if ($(event.target).hasClass('px-filter-box')) {
                     _id = $(event.target).attr("id")
                 } else if ($(event.target).parents('.px-filter-box').length > 0) {
                     _id = $(event.target).parents('.px-filter-box').attr("id")
                 }
-
+                //console.log(_id);
                 if ($(".px-filter-box .my-flt-objects.show").length > 0) {
                     $(".px-filter-box .my-flt-objects.show").each(function () {
-                        if ($(this).parents(".px-filter-box").attr("id") != _id) {
+                        // console.log("for " + $(this).parents(".px-filter-box").attr("id"))
+                        // console.log("for " + $(this).parents(".px-filter-box").attr("id").indexOf(_id));
+                        if (_id == "" || $(this).parents(".px-filter-box").attr("id").indexOf(_id) == -1) {
                             $(this).removeClass("show").fadeOut();
                         }
                     });
@@ -175,7 +185,12 @@
         function get_my_fltr_obj_value(obj) {
             let vl = "";
             if ($(obj).prop("tagName") == "SELECT") {
-                vl = $(obj).selectpicker("val");
+                if ($(obj).parent().hasClass("bootstrap-select")) {
+                    vl = $(obj).selectpicker("val");
+                } else {
+                    vl = $(obj).val();
+                }
+
                 if ($.isArray(vl)) {
                     if (vl.length > 0) {
                         vl = vl.toString().replace('-999,', '').trim();
@@ -199,7 +214,11 @@
         function clean_selected_values(_obj, _callback) {
             $(".my-flt-control", $(_obj).parents(".px-filter-box")).each(function () {
                 if ($(this).prop("tagName") === "SELECT") {
-                    $(this).selectpicker("val", "-999");
+                    if ($(this).parent().hasClass("bootstrap-select")) {
+                        $(this).selectpicker("val", "-999");
+                    } else {
+                        $(this).val("-999");
+                    }
                 } else {
                     $(this).val('');
                 }
@@ -208,7 +227,8 @@
                 $(".my-flt-caption", $(this).parents(".px-filter-box")).removeClass("my-fltr-selected-value");
             });
 
-            _callback(null);
+            if (_callback !== undefined && _callback !== null)
+                _callback(null);
         }
         function send_selected_params(_id, _callback) {
             let _objcls = "#" + _id + " .my-flt-objects .my-flt-container";
