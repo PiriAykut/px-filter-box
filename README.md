@@ -1,7 +1,7 @@
 
 ## install
 > npm i jquery <br><br>
-> npm i px-filter-box
+> npm i px-jquery-filter-box
 
 
 ## html
@@ -24,10 +24,10 @@
 >    \</div\> <br>
 
 ## css
-> @import "~px-filter-box/px-filter-box.css";
+> @import "~px-jquery-filter-box/px-filter-box.css";
 
 ## javascript - jquery
-> require('px-filter-box');
+> require('px-jquery-filter-box');
 
 
 ### init
