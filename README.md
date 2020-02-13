@@ -1,6 +1,7 @@
 
 ## install
 > npm i jquery <br><br>
+> npm i select2 <br><br>
 > npm i px-jquery-filter-box
 
 
@@ -42,6 +43,11 @@
 >        });<br>
 <br>
 
+### calback result
+>   result : {sube: "1", departman: null, durum: "1,2"}
+
+<br>
+
 ### view:
 #### 1.
 ![alt text](https://raw.githubusercontent.com/PiriAykut/px-filter-box/master/screenshots/Screenshot_1.png)
@@ -52,3 +58,5 @@
 ![alt text](https://raw.githubusercontent.com/PiriAykut/px-filter-box/master/screenshots/Screenshot_2.png)
 
 <br>
+
+

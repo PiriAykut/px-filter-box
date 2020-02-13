@@ -68,6 +68,7 @@
         $(_id + " .my-flt-objects label").addClass("my-flt-caption");
 
         let arrtags = ["select", "input", "textarea"];
+        var select2_list = [];
 
         for (let i = 0; i < arrtags.length; i++) {
             const el = arrtags[i];
@@ -82,10 +83,12 @@
                         }
 
                         try {
-                            $(this).selectpicker({ container: 'body', noneSelectedText: 'Seçiniz' });
+                            select2_list.push({name: $(this).attr("name"), select2: $(this).select2() }); //{ container: 'body', noneSelectedText: 'Seçiniz' }
                         } catch (error) { }
 
-                        $(".bootstrap-select.my-flt-control").removeClass("my-flt-control");
+                        setTimeout(() => {
+                            $(".select2-search__field.my-flt-control").removeClass("my-flt-control"); 
+                        }, 500);
                     });
                 }
             }
@@ -106,7 +109,6 @@
                 let _id = $(this).parents(".px-filter-box").attr("id");
                 send_selected_params(_id, _options.callback);
             });
-
             $("body").on("change", _id + " .my-flt-control", function () {
                 let _id = $(this).parents(".px-filter-box").attr("id");
 
@@ -116,10 +118,10 @@
                     send_selected_params(_id, _options.callback);
                 }
             });
-
             $("body").on("click", ".my-flt-clean-btn", function () {
                 clean_selected_values($(this), _options.callback);
             });
+
             $(window).bind('keyup', function (e) {
                 if (e.key === 'Escape') {
                     if ($(".px-filter-box .my-flt-objects.show").length > 0) {
@@ -130,7 +132,7 @@
             $(window).bind('click', function (event) {
                 let _id = "";
 
-                if ($(event.target).parents('.bootstrap-select').length > 0) return;
+                if ($(event.target).parents('.select2-container').length > 0 || $(event.target).hasClass('select2-selection__choice__remove')) return;
 
                 if ($(event.target).hasClass('px-filter-box')) {
                     _id = $(event.target).attr("id")
@@ -227,6 +229,13 @@
                 $(".my-flt-selected-count", $(this).parents(".px-filter-box")).html("0");
                 $(".my-flt-caption", $(this).parents(".px-filter-box")).removeClass("my-fltr-selected-value");
             });
+
+            if (select2_list.length > 0){
+                for (let i = 0; i < select2_list.length; i++) {
+                    const el = select2_list[i];
+                    el.select2.val("-999").trigger("change");
+                }
+            }
 
             if (_callback !== undefined && _callback !== null)
                 _callback(null);
