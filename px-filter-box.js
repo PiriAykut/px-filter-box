@@ -95,7 +95,7 @@
         }
 
         if (_options.button == true) {
-            $(_id + " .my-flt-objects").append('<button class="btn btn-success my-flt-btn">' + _options.button_caption + '</button>');
+            $(_id + " .my-flt-objects").append('<button type="button" class="btn btn-success my-flt-btn">' + _options.button_caption + '</button>');
         }
 
         my_flt_events(_id, _options);
