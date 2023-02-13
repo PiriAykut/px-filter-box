@@ -16,7 +16,7 @@
             }
             return null;
         }
-        
+
 
         let _filterobjectshtml = $(this).html();
         let _parent = $(this).parent();
@@ -81,13 +81,15 @@
                         if ($("option[value='-999']", $(this)).length == 0) {
                             $(this).prepend('<option value="-999">' + _options.select_default_text + '</option>').val("-999");
                         }
-
-                        try {
-                            select2_list.push({name: $(this).attr("name"), select2: $(this).select2() }); //{ container: 'body', noneSelectedText: 'Seçiniz' }
-                        } catch (error) { }
+                        
+                        if ($(this).hasClass("select2")) {
+                            try {
+                                select2_list.push({ name: $(this).attr("name"), select2: $(this).select2() }); //{ container: 'body', noneSelectedText: 'Seçiniz' }
+                            } catch (error) { }
+                        }
 
                         setTimeout(() => {
-                            $(".select2-search__field.my-flt-control").removeClass("my-flt-control"); 
+                            $(".select2-search__field.my-flt-control").removeClass("my-flt-control");
                         }, 500);
                     });
                 }
@@ -234,7 +236,7 @@
                 $(".my-flt-caption", $(this).parents(".px-filter-box")).removeClass("my-fltr-selected-value");
             });
 
-            if (select2_list.length > 0){
+            if (select2_list.length > 0) {
                 for (let i = 0; i < select2_list.length; i++) {
                     const el = select2_list[i];
                     el.select2.val("-999").trigger("change");
