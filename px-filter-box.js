@@ -81,7 +81,7 @@
                         if ($("option[value='-999']", $(this)).length == 0) {
                             $(this).prepend('<option value="-999">' + _options.select_default_text + '</option>').val("-999");
                         }
-                        
+
                         if ($(this).hasClass("select2")) {
                             try {
                                 select2_list.push({ name: $(this).attr("name"), select2: $(this).select2() }); //{ container: 'body', noneSelectedText: 'Seçiniz' }
@@ -248,7 +248,7 @@
         }
         function send_selected_params(_id, _callback) {
             let _objcls = "#" + _id + " .my-flt-objects .my-flt-container";
-            let data = {};
+            let data = '';
             let selectedCount = 0;
 
             $("#" + _id + " .my-flt-caption").removeClass("my-fltr-selected-value");
@@ -257,7 +257,15 @@
                 let vl = get_my_fltr_obj_value($(this));
                 let objname = get_my_fltr_obj_name($(this));
 
-                eval("data." + objname + " = " + vl + ";");
+                for (const [key, value] of Object.entries(data)) {
+                    if (objname == key) _vl = value;
+                }
+
+                if (vl != null) {
+                    data += (data != '' ? ', ' : '') + objname + " : '" + vl.replace("'", '') + "'";
+                } else {
+                    data += (data != '' ? ', ' : '') + objname + " : null";
+                }
 
                 if (vl != null) {
                     if ($("#" + _id + " [data-member-name='" + objname + "']").length > 0) {
@@ -269,6 +277,10 @@
                     selectedCount += (vl.indexOf(',') > -1 ? vl.split(',').length : 1);
                 }
             });
+
+            if (data != '') {
+                data = JSON.parse('{' + data + '}');
+            }
 
             $("#" + _id + " .my-flt-selected-count").html(selectedCount);
 
