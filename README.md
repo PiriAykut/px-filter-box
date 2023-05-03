@@ -1,3 +1,8 @@
+## description
+>Used to group objects used jquery-filter-box filter. When the filtering objects are many, up to 2 or more lines, jquery-filter-box allows you to group these objects as many times as you want. For example, you can use Filter 1, Filter 2, Filter 3, Filter 4, Filter 5 ... objects as a single object with jquery-filter-box[Filter 1, Filter 2, Filter 3, Filter 4, Filter 5]. Sample images are available below.
+
+## description TR
+>jquery-filter-box filter için kullanılan nesneleri gruplamak için kullanılır.  Filtreleme nesneleri çok olduğunda 2 veya daha fazla satıra çıktığında jquery-filter-box bu nesneleri istediğiniz kadar gruplamanızı sağlar. Örneğin Filter 1, Filter 2, Filter 3, Filter 4, Filter 5 ... nesnelerini jquery-filter-box[Filter 1, Filter 2, Filter 3, Filter 4, Filter 5] ile tek nesne olarak kullanabilirsiniz. Örnek resimler aşağıda mevcut.
 
 ## install
 > npm i jquery <br><br>
