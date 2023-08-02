@@ -17,7 +17,6 @@
             return null;
         }
 
-
         let _filterobjectshtml = $(this).html();
         let _parent = $(this).parent();
 
@@ -30,6 +29,7 @@
             button_caption: "Filtreyi Uygula",
 
             select_add_default_option: true,
+            select_default_value: "-999",
             select_default_text: "Seçiniz",
 
             selected_info_text: "Filtre Seçildi",
@@ -82,8 +82,8 @@
 
                 if (el == "select") {
                     $(_objtag).each(function () {
-                        if (_options.select_add_default_option && $("option[value='-999']", $(this)).length == 0) {
-                            $(this).prepend('<option value="-999">' + _options.select_default_text + '</option>').val("-999");
+                        if (_options.select_add_default_option && $("option[value='" + _options.select_default_value + "']", $(this)).length == 0) {
+                            $(this).prepend('<option value="' + _options.select_default_value + '">' + _options.select_default_text + '</option>').val(_options.select_default_value);
                         }
 
                         if ($(this).hasClass("select2")) {
@@ -202,21 +202,21 @@
 
                 if ($.isArray(vl)) {
                     if (vl.length > 0) {
-                        vl = vl.toString().replace('-999,', '').trim();
+                        vl = vl.toString().replace(_options.select_default_value + ',', '').trim();
                     }
                 }
                 if (vl == "") {
-                    vl = "-999";
+                    vl = _options.select_default_value;
                 }
             } else {
                 vl = $(obj).val().replace("'", "\'");
 
                 if (vl == "") {
-                    vl = "-999";
+                    vl = _options.select_default_value;
                 }
             }
 
-            if (vl == '-999')
+            if (vl == _options.select_default_value)
                 vl = null;
             else
                 vl = "'" + vl + "'";
@@ -225,12 +225,14 @@
         }
 
         function clean_selected_values(_obj, _callback) {
+            $(_obj).parents(".px-filter-box").addClass("clearing");
+
             $(".my-flt-control", $(_obj).parents(".px-filter-box")).each(function () {
                 if ($(this).prop("tagName") === "SELECT") {
                     if ($(this).parent().hasClass("bootstrap-select")) {
-                        $(this).selectpicker("val", "-999");
+                        $(this).selectpicker("val", _options.select_default_value);
                     } else {
-                        $(this).val("-999");
+                        $(this).val(_options.select_default_value);
                     }
                 } else {
                     $(this).val('');
@@ -243,16 +245,28 @@
             if (select2_list.length > 0) {
                 for (let i = 0; i < select2_list.length; i++) {
                     const el = select2_list[i];
-                    el.select2.val("-999").trigger("change");
+                    el.select2.val(_options.select_default_value).trigger("change");
                 }
             }
 
-            if (_callback !== undefined && _callback !== null)
-                _callback(null);
+            if (_callback !== undefined && _callback !== null) {
+                let _data = $(".my-flt-objects .my-flt-container", $(_obj).parents(".px-filter-box")).attr("data-json");
+
+                if (_data && _data != "") {
+                    _data = JSON.parse(_data);
+                } else {
+                    _data = null;
+                }
+
+                _callback(_data);
+            }
+
+            $(_obj).parents(".px-filter-box").removeClass("clearing");
         }
+
         function send_selected_params(_id, _callback) {
             let _objcls = "#" + _id + " .my-flt-objects .my-flt-container";
-            let data = '';
+            let data = {};
             let selectedCount = 0;
 
             $("#" + _id + " .my-flt-caption").removeClass("my-fltr-selected-value");
@@ -266,12 +280,6 @@
                 }
 
                 if (vl != null) {
-                    data += (data != '' ? ', ' : '') + objname + " : '" + vl.replace("'", '') + "'";
-                } else {
-                    data += (data != '' ? ', ' : '') + objname + " : null";
-                }
-
-                if (vl != null) {
                     if ($("#" + _id + " [data-member-name='" + objname + "']").length > 0) {
                         $("#" + _id + " [data-member-name='" + objname + "']").addClass("my-fltr-selected-value");
                     } else if ($(this).attr("id") !== undefined && $("#" + _id + " label[for='" + $(this).attr("id") + "']").length > 0) {
@@ -280,17 +288,29 @@
 
                     selectedCount += (vl.indexOf(',') > -1 ? vl.split(',').length : 1);
                 }
-            });
 
-            if (data != '') {
-                data = JSON.parse('{' + data + '}');
-            }
+                try {
+                    let newData = "";
+                    if (vl != null) {
+                        newData = '{ "' + objname + '": "' + vl.replaceAll("'", "").replaceAll('"', '') + '" }';
+                    } else {
+                        newData = '{ "' + objname + '": null }';
+                    }
+
+                    newData = JSON.parse(newData);
+
+                    data = { ...data, ...newData };
+
+                } catch (err) { }
+            });
 
             $("#" + _id + " .my-flt-selected-count").html(selectedCount);
 
-            if (_callback !== undefined && _callback !== null)
+            if (!$(_objcls).parents(".px-filter-box").hasClass("clearing") && _callback !== undefined && _callback !== null) {
+                $(_objcls).attr("data-json", JSON.stringify(data));
+
                 _callback(data);
-            else
+            } else
                 return data;
         }
 
@@ -305,4 +325,12 @@
                 s4() + '-' + s4() + s4() + s4();
         }
     }
+
+    String.prototype.replaceAll = function (search, replacement) {
+        //     if((typeof this)!=='string')
+        //      
+        //          return this;
+        var target = this;
+        return target.split(search).join(replacement);
+    };
 })(jQuery);

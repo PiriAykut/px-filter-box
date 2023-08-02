@@ -42,6 +42,7 @@
 >            button: true,<br>
 >            type: 'filter', //'filter' or 'sort'<br>
 >            button_caption: "Filtreyi Uygula",<br>
+>            select_add_default_option: true,
 >            select_default_text: "Seçiniz",<br>
 >            selected_info_text: "Filtre Seçildi",<br>
 >            callback: function(e){}<br>
