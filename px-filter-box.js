@@ -28,8 +28,12 @@
             button: false,
             type: 'filter', //'filter' or 'sort'
             button_caption: "Filtreyi Uygula",
+
+            select_add_default_option: true,
             select_default_text: "Seçiniz",
+
             selected_info_text: "Filtre Seçildi",
+
             callback: null
         };
 
@@ -78,7 +82,7 @@
 
                 if (el == "select") {
                     $(_objtag).each(function () {
-                        if ($("option[value='-999']", $(this)).length == 0) {
+                        if (_options.select_add_default_option && $("option[value='-999']", $(this)).length == 0) {
                             $(this).prepend('<option value="-999">' + _options.select_default_text + '</option>').val("-999");
                         }
 
@@ -106,12 +110,13 @@
 
             $("body").on("click", _id, function () {
                 $(_id + " .my-flt-objects").addClass("show").fadeIn();
-            });
-            $("body").on("click", _id + " .my-flt-btn", function () {
+            }).on("click", _id + " .my-flt-btn", function () {
                 let _id = $(this).parents(".px-filter-box").attr("id");
                 send_selected_params(_id, _options.callback);
-            });
-            $("body").on("change", _id + " .my-flt-control", function () {
+            }).on("change", _id + " select, " + _id + " input", function () {
+                let _id = $(this).parents(".px-filter-box").attr("id");
+                send_selected_params(_id, _options.callback);
+            }).on("change", _id + " .my-flt-control", function () {
                 let _id = $(this).parents(".px-filter-box").attr("id");
 
                 //add_selected_values(_id, $(this));
@@ -119,8 +124,7 @@
                 if (_options.button == false) {
                     send_selected_params(_id, _options.callback);
                 }
-            });
-            $("body").on("click", ".my-flt-clean-btn", function () {
+            }).on("click", ".my-flt-clean-btn", function () {
                 clean_selected_values($(this), _options.callback);
             });
 
