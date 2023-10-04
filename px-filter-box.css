@@ -22,8 +22,7 @@
 .px-filter-box::before,
 .px-filter-box::after {
     position: absolute;
-    /* font: normal normal normal 14px/1 FontAwesome; */
-    font-family: "Font Awesome 6 Free", "Font Awesome 6 Pro";
+    font-family: "FontAwesome", "Font Awesome 6 Free", "Font Awesome 6 Pro";
     font-weight: normal;
     font-size: 17px;
     text-rendering: auto;
