@@ -118,9 +118,7 @@
                 send_selected_params(_id, _options.callback);
             }).on("change", _id + " .my-flt-control", function () {
                 let _id = $(this).parents(".px-filter-box").attr("id");
-
                 //add_selected_values(_id, $(this));
-
                 if (_options.button == false) {
                     send_selected_params(_id, _options.callback);
                 }
@@ -138,7 +136,7 @@
             $(window).bind('click', function (event) {
                 let _id = "";
 
-                if ($(event.target).parents('.select2-container').length > 0 || $(event.target).hasClass('select2-selection__choice__remove')) return;
+                if ($(event.target).parents(".select2-selection__choice__remove").length > 0 || $(event.target).parents('.select2-container').length > 0 || $(event.target).hasClass('select2-selection__choice__remove')) return;
 
                 if ($(event.target).hasClass('px-filter-box')) {
                     _id = $(event.target).attr("id")
