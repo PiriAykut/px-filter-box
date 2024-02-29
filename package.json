@@ -1,6 +1,6 @@
 {
   "name": "px-jquery-filter-box",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "Used to group objects used jquery-filter-box filter. When the filtering objects are many, up to 2 or more lines, jquery-filter-box allows you to group these objects as many times as you want. For example, you can use Filter 1, Filter 2, Filter 3, Filter 4, Filter 5 ... objects as a single object with jquery-filter-box[Filter 1, Filter 2, Filter 3, Filter 4, Filter 5]",
   "main": "px-filter-box.js",
   "scripts": {
