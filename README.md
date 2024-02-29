@@ -12,7 +12,7 @@
 
 ## html
 > \<div class="my-filter-blok d-none"\><br>
->        \<label id="filter-sube" data-member-name="sube"\>Şube\</label\> <br>
+>        \<label for="filter-sube" data-member-name="sube"\>Şube\</label\> <br>
 >        \<select id="filter-sube" name="sube"\> <br>
 >            \<option value="1"\>Option 1\</option\> <br>
 >            \<option value="2"\>Option 2\</option\> <br>
