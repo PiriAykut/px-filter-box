@@ -113,13 +113,9 @@
             }).on("click", _id + " .my-flt-btn", function () {
                 let _id = $(this).parents(".px-filter-box").attr("id");
                 send_selected_params(_id, _options.callback);
-            }).on("change", _id + " select, " + _id + " input", function () {
-                let _id = $(this).parents(".px-filter-box").attr("id");
-                send_selected_params(_id, _options.callback);
-            }).on("change", _id + " .my-flt-control", function () {
-                let _id = $(this).parents(".px-filter-box").attr("id");
-                //add_selected_values(_id, $(this));
-                if (_options.button == false) {
+            }).on("change", _id + " select, " + _id + " input, " + _id + " .my-flt-control", function () {
+                if (!_options.button) {
+                    let _id = $(this).parents(".px-filter-box").attr("id");
                     send_selected_params(_id, _options.callback);
                 }
             }).on("click", ".my-flt-clean-btn", function () {
