@@ -28,6 +28,8 @@
             type: 'filter', //'filter' or 'sort'
             button_caption: "Filtreyi Uygula",
 
+            clean_text: "Seçimleri Temizle",
+
             select_add_default_option: true,
             select_default_value: "-999",
             select_default_text: "Seçiniz",
@@ -62,7 +64,7 @@
         _parent.append('<div id="' + _id + '" data-key="' + _key + '" data-object-id="' + _object_id + '" data-object-class="' + _object_class + '" class="px-filter-box mfb-type-' + _options.type + '" title="' + _cap + ' Seçenekleri">' +
             '   <span class="my-flt-selected-text"><i class="my-flt-selected-count">0</i> ' + _options.selected_info_text + '</span>' +
             '   <div class="my-flt-objects">' +
-            '       <div class="my-flt-clean"><span class="my-flt-clean-btn">Seçimleri Temizle</span></div>' +
+            '       <div class="my-flt-clean"><span class="my-flt-clean-btn">' + _options.clean_text + '</span></div>' +
             //'       ' + (_options.show_selected_values ? '<div class="my-flt-selected-items"></div>' : '') +
             '       <div class="my-flt-container">' + _filterobjectshtml + '</div>' +
             '   </div>' +

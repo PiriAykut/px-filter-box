@@ -42,6 +42,7 @@
 >            button: true,<br>
 >            type: 'filter', //'filter' or 'sort'<br>
 >            button_caption: "Filtreyi Uygula",<br>
+>            clean_text: "Seçimleri Temizle",<br>
 >            select_add_default_option: true,
 >            select_default_text: "Seçiniz",<br>
 >            selected_info_text: "Filtre Seçildi",<br>
