@@ -52,6 +52,10 @@
 
     let _cap = _options.type == "filter" ? "Filtre" : "Sıralama";
 
+    if (_options.icon == "" || _options.icon == null) {
+      _options.icon = "firsticon";
+    }
+
     if (_options.type == "sort") {
       if (_options.selected_info_text == "Filtre Seçildi") {
         _options.selected_info_text = "Sıralama Seçildi";
@@ -61,36 +65,58 @@
       }
     }
 
-    _parent.append(`<div id=${_id}" data-key="${_key}" data-object-id="${_object_id}" data-object-class="${_object_class}" class="px-filter-box mfb-type-${
-      _options.type
-    }" title="${_cap} Seçenekleri"> 
-                    <i class="${_options.icon}"></i>
-                    <span class="my-flt-selected-text">
-                      <i class="my-flt-selected-count">0</i>
-                      ${_options.selected_info_text}
-                    </span>
-                    <div class="my-flt-objects">
-                      ${
-                        _options.clean_text_visible
-                          ? '<div class="my-flt-clean"><span class="my-flt-clean-btn">' +
-                            _options.clean_text +
-                            "</span></div>"
-                          : ""
-                      }
-                      <div class="my-flt-container">${_filterobjectshtml}</div>
-                    </div>
-                </div>`);
+    // _parent.append(`<div id="${_id}" data-key="${_key}" data-object-id="${_object_id}" data-object-class="${_object_class}" class="px-filter-box mfb-type-${
+    //   _options.type
+    // }" title="${_cap} Seçenekleri">
+    //                 <i class="${_options.icon}"></i>
+    //                 <span class="my-flt-selected-text">
+    //                   <i class="my-flt-selected-count">0</i>
+    //                   ${_options.selected_info_text}
+    //                 </span>
+    //                 <div class="my-flt-objects">
+    //                   ${
+    //                     _options.clean_text_visible
+    //                       ? '<div class="my-flt-clean"><span class="my-flt-clean-btn">' +
+    //                         _options.clean_text +
+    //                         "</span></div>"
+    //                       : ""
+    //                   }
+    //                   <div class="my-flt-container">${_filterobjectshtml}</div>
+    //                 </div>
+    //             </div>`);
 
-    // _parent.append(
-    //   '<div id="' + _id + '" data-key="' + _key + '" data-object-id="' + _object_id + '" data-object-class="' + _object_class + '" class="px-filter-box mfb-type-' + _options.type + '" title="' + _cap + ' Seçenekleri">' +
-    //   " <i class='" + _options.icon + "'></i>" +
-    //     '   <span class="my-flt-selected-text"><i class="my-flt-selected-count">0</i> ' + _options.selected_info_text + "</span>" +
-    //     '   <div class="my-flt-objects">' +
-    //     (_options.clean_text_visible ? '<div class="my-flt-clean"><span class="my-flt-clean-btn">' + _options.clean_text + "</span></div>" : "") +
-    //     '       <div class="my-flt-container">' + _filterobjectshtml + "</div>" +
-    //     "   </div>" +
-    //     "</div>"
-    // );
+    _parent.append(
+      '<div id="' +
+        _id +
+        '" data-key="' +
+        _key +
+        '" data-object-id="' +
+        _object_id +
+        '" data-object-class="' +
+        _object_class +
+        '" class="px-filter-box mfb-type-' +
+        _options.type +
+        '" title="' +
+        _cap +
+        ' Seçenekleri">' +
+        " <i class='" +
+        _options.icon +
+        "'></i>" +
+        '   <span class="my-flt-selected-text"><i class="my-flt-selected-count">0</i> ' +
+        _options.selected_info_text +
+        "</span>" +
+        '   <div class="my-flt-objects">' +
+        (_options.clean_text_visible
+          ? '<div class="my-flt-clean"><span class="my-flt-clean-btn">' +
+            _options.clean_text +
+            "</span></div>"
+          : "") +
+        '       <div class="my-flt-container">' +
+        _filterobjectshtml +
+        "</div>" +
+        "   </div>" +
+        "</div>"
+    );
     _id = "#" + _id;
 
     $(_id + " .my-flt-objects label").addClass("my-flt-caption");

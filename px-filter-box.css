@@ -21,7 +21,7 @@
 
 .px-filter-box::before,
 .px-filter-box::after,
-.px-filter-box i {
+.px-filter-box i::before {
     position: absolute;
     font-family: "FontAwesome", "Font Awesome 6 Free", "Font Awesome 6 Pro";
     font-weight: normal;
@@ -32,16 +32,20 @@
     display: inline-block;
 }
 
-.px-filter-box i{
+.px-filter-box i::before{
     left: 8px;
+    top: 9px;
+}
+
+.px-filter-box i.firsticon::before{
     top: 5px;
 }
 
-.px-filter-box.mfb-type-filter .firsticon{
+.px-filter-box.mfb-type-filter .firsticon::before{
     content: "\F0B0";
 }
 
-.px-filter-box.mfb-type-sort .firsticon {
+.px-filter-box.mfb-type-sort .firsticon::before {
     content: "\f161";
 }
 

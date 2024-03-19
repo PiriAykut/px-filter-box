@@ -41,7 +41,9 @@
 >            show_selected_values: false,<br>
 >            button: true,<br>
 >            type: 'filter', //'filter' or 'sort'<br>
+>            icon: "firsticon", 
 >            button_caption: "Filtreyi Uygula",<br>
+>            clean_text_visible: true,
 >            clean_text: "Seçimleri Temizle",<br>
 >            select_add_default_option: true,
 >            select_default_text: "Seçiniz",<br>
